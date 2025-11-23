@@ -1,0 +1,27 @@
+# @package _global_
+
+defaults:
+  - override /hydra/launcher: submitit_slurm
+
+hydra:
+  launcher:
+    max_num_timeout: 100000
+    timeout_min: 4319
+    account: ocp
+    qos: ocp_high
+    mem_gb: 1000
+    nodes: 1
+    gpus_per_node: ${train.pl_trainer.devices}
+    tasks_per_node: ${hydra.launcher.gpus_per_node}
+
+# logging:
+#   wandb:
+#     name: ${expname}_${hydra:job.num}
+#     project: cgfm_mp20_202507
+
+data:
+  datamodule:
+    num_workers:
+      train: 0
+      val: 0
+      test: 0
